@@ -3,5 +3,10 @@
 </head>
 
 <body>
-  <div id="render-target"></div>
+	{{> home}}
 </body>
+
+<template name="home">
+	<h1>React in blaze</h1>
+	<div>{{> React component=App}}</div>
+</template>
