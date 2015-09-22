@@ -6,13 +6,6 @@ if (Meteor.isClient) {
   Accounts.ui.config({
     passwordSignupFields: "USERNAME_ONLY"
   });
-
-  Meteor.subscribe("tasks");
- 
-  Meteor.startup(function () {
-    // Use Meteor.startup to render the component after the page is ready
-    React.render(<App />, document.getElementById("render-target"));
-  });
 }
 
 if (Meteor.isServer) {
@@ -26,6 +19,15 @@ if (Meteor.isServer) {
     });
   });
 }
+
+FlowRouter.route('/', {
+  subscriptions: function() {
+    this.register('tasks', Meteor.subscribe('tasks'));
+  },
+  action() {
+    ReactLayout.render(MainLayout, {content: <App />});
+  }
+});
 
 Meteor.methods({
   addTask(text) {
